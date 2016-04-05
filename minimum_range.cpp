@@ -40,40 +40,30 @@ int query(int node, int b, int e, int i, int j)
 
 void initialize(int node, int b, int e)
 {
-	// cout << node << " " << b << " " << e << endl;
+	// the 
 	if (b == e) {
 		M[node] = b;
-		// cout << M[node] << endl;
 	} else {
 		//compute the values in the left and right subtrees
 		initialize(2 * node, b, (b + e) / 2);
 		initialize(2 * node + 1, (b + e) / 2 + 1, e);
 		//search for the minimum value in the first and 
 		//second half of the interval
-		//cout << 2 * node << " " << 2 * node +1 << endl;
 		if (A[M[2 * node]] <= A[M[2 * node + 1]]) {
 			M[node] = M[2 * node];
 		} else {
 			M[node] = M[2 * node + 1]; 
 		}
-		// cout << M[node] << endl;
 	}
 }
 
 int main (void) {
 
-	// int myints[] = {16,2,77,29};
-	// A (myints, myints + sizeof(myints) / sizeof(int) );
 	M.resize(2 * pow(2,(int)log2(N)+1));
 
 	initialize(1,0,N-1);
 
-	// for (auto i=0;i<M.size();++i) {
-	// 	cout << i+1 << " " << M[i] << endl;
-	// }
-
 	cout << A[query(1,0,N-1,0,5)] << endl;
-
 
 	return 0;
 }
